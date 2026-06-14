@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Homeaglow Sales Script Guide</title>
+<title>Phoenix Sales Script Guide</title>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -18,6 +18,7 @@
 
 <nav class="tabnav" id="tabnav">
   <button class="tab active" data-target="opening">Opening Spiel</button>
+  <button class="tab" data-target="onset-objections">Onset Objections</button>
   <button class="tab" data-target="discovery">Discovery</button>
   <button class="tab" data-target="elevator">Elevator Pitch</button>
   <button class="tab" data-target="data-gathering">Data Gathering</button>
@@ -35,173 +36,301 @@
 <div class="page-wrap">
   <main class="content">
 
-
     <section class="panel active" id="opening">
-      <h1>Opening Spiel</h1>
-      <p class="hint">What you say in the first 10 seconds. Confident, warm, and quick — get to the reason for the call before they decide to hang up.</p>
+      <h1>Phase 1: Opening Spiel</h1>
+      <p class="hint">These leads have gone quiet for a few weeks. They likely don't remember the original call, may not recognize the number, and could be wary of "another sales call." Keep it short, warm, and give them an easy reason to stay on the line — lead with curiosity or a quick win, not a recap of the past.</p>
+
+      <h3>Opener A — The Quick Favor / Curiosity Hook</h3>
       <div class="script-block">
-        <p>"Hi, is this <strong>[Customer Name]</strong>? Hi [Name], this is [Your Name] calling from Homeaglow — you signed up recently for a home cleaning, just calling to get that scheduled for you. Do you have a quick minute?"</p>
+        <p>"Hi, is this <strong>(Customer Name)</strong>? Hey, this is <strong>(Your Name)</strong> with Homeaglow — quick one for you. A little while back you'd looked into getting your place cleaned, and I just wanted to check in because we've actually got some new pricing that's a lot more affordable now. Got like 20 seconds?"</p>
       </div>
+
+      <h3>Opener B — The "Still Interested?" Hook</h3>
       <div class="script-block alt">
-        <p><strong>If they sound rushed:</strong> "No problem at all — this'll take less than two minutes, I just need to confirm a few details about your home and get you on the calendar."</p>
+        <p>"Hey <strong>(Customer Name)</strong>, this is <strong>(Your Name)</strong> calling from Homeaglow. I know it's been a bit since we last spoke — I'm just doing a quick round of calls to folks who checked us out before to see if a home cleaning is still something you'd want, now that we've got some better offers running. Is that something you'd still be open to?"</p>
       </div>
+
+      <h3>Opener C — The Direct Value Lead</h3>
+      <div class="script-block alt">
+        <p>"Hi <strong>(Customer Name)</strong>, <strong>(Your Name)</strong> here from Homeaglow. I'll keep this quick — we're running a promo where your first cleaning can be as low as $9, and I wanted to make sure you didn't miss it since you'd looked into this before. Want me to walk you through it real quick?"</p>
+      </div>
+
+      <h3>If they sound annoyed or say "I already told you no"</h3>
+      <div class="script-block alt">
+        <p>"Totally fair, I appreciate you letting me know. Just so I'm not wasting your time — was it more about the price, or just not the right time back then? If it's pricing, the offers have actually changed quite a bit since we last spoke, and it might be worth a quick look."</p>
+      </div>
+
       <h3>Goals of this phase</h3>
       <ul>
-        <li>Confirm identity and that they remember signing up</li>
-        <li>Set a low-pressure, helpful tone</li>
-        <li>Transition smoothly into Discovery</li>
+        <li>Re-engage without sounding like a repeat cold call — lead with what's <em>new</em></li>
+        <li>Get a small "yes" (20 seconds, quick question) before pitching anything</li>
+        <li>If they push back immediately, pivot to a one-line value hook instead of re-explaining the whole service</li>
+      </ul>
+    </section>
+
+    <section class="panel" id="onset-objections">
+      <h1>Onset Objections</h1>
+      <p class="hint">These are the immediate, reflexive pushbacks that happen in the first 5-10 seconds — before you've even gotten into Discovery. Agents often freeze here or jump straight into a full pitch, which makes it worse. The goal is a short, low-friction re-hook that buys you 15-20 more seconds, not a full rebuttal. If the re-hook fails, let them go gracefully — don't force it.</p>
+
+      <div class="objection">
+        <h3>"I'm not interested."</h3>
+        <p>"No worries at all — quick one though, is that 'not interested in cleaning services' in general, or just not interested in hearing from us again? If it's the first one, totally fine, I'll let you go. If it's more about us, the offer's actually changed a lot since we last reached out — worth 15 seconds?"</p>
+      </div>
+
+      <div class="objection">
+        <h3>"I no longer need this / I don't need a cleaning service anymore."</h3>
+        <p>"Got it, makes sense — situations change. Out of curiosity, was that because you found another solution, or just don't have the need right now? Either way, no pressure — just wanted to check before I update our records on your file."</p>
+      </div>
+
+      <div class="objection">
+        <h3>"How did you get my number? / Why are you calling me?"</h3>
+        <p>"Good question — you'd checked out home cleaning services on one of our sites a little while back, that's how we have this number. I know it's been a bit since then, which is exactly why I'm calling — wanted to see if it's still something you'd want now that pricing's changed. Bad timing, or got a sec?"</p>
+      </div>
+
+      <div class="objection">
+        <h3>"Take me off your list / stop calling me."</h3>
+        <p>"Understood, I'll make sure that's taken care of right away — you won't get another call from us. Have a good one." <br><em>(Tag the lead as Do Not Call in the CRM immediately. Do not attempt a re-hook on this one — this is a hard stop.)</em></p>
+      </div>
+
+      <div class="objection">
+        <h3>"Is this a sales call?" (asked suspiciously, before you've said anything)</h3>
+        <p>"Ha, I won't pretend it's not — but I'll keep it short. We've actually lowered our cleaning service pricing since you last looked into us, and I just wanted to make sure you saw that before I move on to my next call. Want the 20-second version, or should I let you go?"</p>
+      </div>
+
+      <div class="objection">
+        <h3>Silence / one-word "yeah?" (guarded, unclear tone)</h3>
+        <p>"Hey, no worries if this isn't a good time — I'll be quick either way. This is (Your Name) with Homeaglow, following up on a home cleaning quote you'd looked at before. Just checking if that's still something you'd want, since pricing's improved since then. Quick yes or no is totally fine."</p>
+      </div>
+
+      <h3>General rule of thumb</h3>
+      <ul>
+        <li>One re-hook attempt only — don't stack multiple "just one more thing" asks</li>
+        <li>Always lead the re-hook with <em>what's new</em>, not a recap of the old pitch</li>
+        <li>If the objection is a hard DNC request, log it immediately and move on — do not re-hook</li>
       </ul>
     </section>
 
     <section class="panel" id="discovery">
-      <h1>Discovery</h1>
-      <p class="hint">Learn about the home and the customer's situation before pitching anything. This is where you gather the details the Cleaning Calculator needs.</p>
+      <h1>Phase 2: Discovery</h1>
+      <p class="hint">The goal here is to find out why they didn't book the first time, and whether that reason still applies. Most recycled leads fall into one of three buckets: price was too high, timing was off, or they forgot/got busy. Identify which one fast so you can address it directly later.</p>
+
+      <h3>Re-engagement Questions</h3>
       <div class="script-block">
-        <p>"To get you matched with the right cleaner and the right plan, can you tell me a bit about your place — how many bedrooms and bathrooms are we working with?"</p>
+        <p><strong>Q1 — Re-open the file:</strong> "Just to refresh my memory on your end too — when you looked into this before, do you remember what made you hold off? Was it more the price, the timing, or just life getting busy?"</p>
       </div>
       <div class="script-block">
-        <p>"And is there anything specific you're hoping to get taken care of — deep cleaning, certain rooms, pets in the home, anything like that?"</p>
+        <p><strong>Q2 — Current situation:</strong> "And how's that been going for you since then — still handling the cleaning yourself, or did you end up going with someone else?"</p>
       </div>
+      <div class="script-block">
+        <p><strong>Q3 — Logistics refresh:</strong> "Just to make sure I've got the right info — what area are you in, and roughly how many bedrooms and bathrooms are we talking about?"</p>
+      </div>
+
+      <h3>If they say "I forgot about it" / "got busy"</h3>
+      <div class="script-block alt">
+        <p>"Totally get it — happens to everyone. Good news is, it'll take less than two minutes to get this sorted today, and I can walk you through pricing that's actually better than what we had before. Sound good?"</p>
+      </div>
+
+      <h3>If they say "I went with someone else"</h3>
+      <div class="script-block alt">
+        <p>"That's great that you found someone! Out of curiosity, how's that been working out — anything you wish were different, like pricing, reliability, or flexibility? I only ask because a lot of people keep us as a backup option since we can usually slot in fast if their regular cleaner falls through."</p>
+      </div>
+
       <h3>What to capture</h3>
       <ul>
-        <li>Bedrooms / bathrooms</li>
-        <li>Pets, allergies, special requests</li>
-        <li>Preferred days/times</li>
-        <li>Any areas needing extra attention (deep clean candidates)</li>
+        <li>Original objection (price / timing / forgot / found alternative)</li>
+        <li>Bedrooms &amp; bathrooms</li>
+        <li>Area / city-state (for availability)</li>
+        <li>Whether current need still exists</li>
       </ul>
     </section>
 
     <section class="panel" id="elevator">
-      <h1>Elevator Pitch</h1>
-      <p class="hint">A 20-30 second summary of the value — used after Discovery, before diving into details.</p>
+      <h1>Phase 3: Elevator Pitch — What's Changed</h1>
+      <p class="hint">Since these leads heard a version of Homeaglow before, don't repeat the full intro — frame this as "here's what's different now" to create a reason to re-engage.</p>
+
       <div class="script-block">
-        <p>"Here's how it works: we match you with a vetted, background-checked cleaner who comes on a schedule that works for you. You're covered by our satisfaction guarantee, so if anything's ever not right, we make it right — no extra charge. Membership also includes [benefits], and you can pause or adjust anytime."</p>
+        <p>"So here's the quick update — Homeaglow's now the largest home cleaning company in the country, over 2.6 million cleanings done for almost 900,000 customers, and we've actually lowered our rates since the last time we talked. We connect you with background-checked cleaners — over 20,000 of them, including a good number right in your area — and the pricing now starts a lot lower than before."</p>
+      </div>
+
+      <div class="script-block alt">
+        <p><strong>Shorter version (if they're impatient):</strong> "Long story short — bigger network, lower prices than when you last looked, and your first cleaning can be as low as $9. Want me to run the numbers for your place?"</p>
       </div>
     </section>
 
     <section class="panel" id="data-gathering">
-      <h1>Data Gathering</h1>
-      <p class="hint">Before quoting a price, confirm the details that drive the estimate.</p>
+      <h1>Phase 4: Data Gathering</h1>
+      <p class="hint">Quick confirmation of the basics so the pricing you give in the next phase is accurate and specific to them — specificity builds trust on a recycled lead.</p>
+
       <div class="script-block">
-        <p>"Just to make sure I quote this accurately — does your home have any pets, how would you describe the current condition (lived-in, needs a deep clean, pretty tidy), and roughly what size is the space in square footage?"</p>
+        <p>"Just to make sure I give you the right numbers — how many bedrooms and bathrooms are we cleaning, and about how often were you thinking — once a month, every other week, or weekly?"</p>
       </div>
+
       <h3>Checklist</h3>
       <ul>
-        <li>Bedrooms &amp; bathrooms (for hour estimate)</li>
-        <li>Current condition of home</li>
-        <li>Pets / special surfaces</li>
-        <li>Preferred frequency (1x–4x per month)</li>
-        <li>Preferred hours / availability</li>
+        <li>Bedrooms &amp; bathrooms</li>
+        <li>Desired frequency</li>
+        <li>Any pets / specific areas of focus</li>
       </ul>
-      <p class="hint">Use the <strong>Cleaning Calculator</strong> tool once you have these details to generate an estimate.</p>
+
+      <p class="hint">Once you have hours + frequency, proceed to Sales Pitch and use the <strong>DHJ Voucher</strong> calculator on the right to quote the numbers live.</p>
     </section>
 
     <section class="panel" id="sales-pitch">
-      <h1>Sales Pitch</h1>
-      <p class="hint">Present the estimate and membership value clearly. Lead with the plan, then the price, then the guarantee.</p>
+      <h1>Phase 5: Sales Pitch</h1>
+      <p class="hint">We have three offerings. Lead with the DHJ Voucher + ForeverClean membership — it's our best value and the easiest to make sound like a no-brainer on a recycled lead. Use One-Time or Trial as fallback offers if they push back on membership.</p>
+
+      <h3>Offering 1 — DHJ Voucher + ForeverClean Membership (lead with this)</h3>
       <div class="script-block">
-        <p>"Based on what you've told me, I'd recommend starting with [X] hours per visit, [frequency]x a month. With the $59/month membership, that comes out to about $[estimate] per visit. That membership also covers [benefits] — and every cleaning is backed by our happiness guarantee."</p>
+        <p>"Okay, here's the good news — for a home your size, we'd recommend starting with a <strong>(X)-hour</strong> first cleaning. Normally that'd run you around <strong>(national average price)</strong>, but since you checked us out before, I can actually get you that first cleaning for just <strong>(voucher price)</strong> — that's our 2-hour at $9, 3-hour at $19, 4-hour at $39, or 6-hour at $79, depending on what your place needs."</p>
       </div>
-      <h3>Tips</h3>
+      <div class="script-block">
+        <p>"That voucher comes with a ForeverClean membership at $59 a month, which is what unlocks the discounted rate of about $23/hour for every cleaning after that. Based on the (frequency) you mentioned, your future cleanings would run around (estimated monthly cost) — way below what most people pay locally."</p>
+      </div>
+      <div class="script-block alt">
+        <p><strong>Cancellation framing:</strong> "And just so you know upfront — you can cancel anytime. If you cancel before the 6-month minimum, the only thing you'd owe is a flat $35/hour based on your first cleaning's hours, so for your (X)-hour cleaning that'd be (X &times; $35)."</p>
+      </div>
+
+      <h3>Offering 2 — One-Time Cleaning (fallback if they don't want a membership)</h3>
+      <div class="script-block">
+        <p>"No worries if a membership isn't what you're after — we also do one-time cleanings, no strings attached, at <strong>$63 an hour</strong>. So for a (X)-hour cleaning, that'd come out to (X &times; $63) total, one-time, done."</p>
+      </div>
+
+      <h3>Offering 3 — Trial Cleaning (middle-ground option)</h3>
+      <div class="script-block">
+        <p>"If you want to try us out before committing to anything, we also have a trial cleaning option at <strong>$52.50 an hour</strong> — so a (X)-hour trial would be (X &times; $52.50). You'd have 30 days to decide if you want to continue with a membership or not, no pressure either way."</p>
+      </div>
+
+      <h3>Negotiation — if they hesitate on the $59 membership fee</h3>
+      <div class="script-block alt">
+        <p><strong>Step 1:</strong> "I hear you — totally fair. If the $59 is what's giving you pause, I can actually bring that down to $54 a month for you. Would that work better?"</p>
+      </div>
+      <div class="script-block alt">
+        <p><strong>Step 2 (if still hesitant):</strong> "I can go one more step and get that down to $49 a month — that's the lowest I'm able to go, and it still gets you the same $23/hour discounted rate going forward."</p>
+      </div>
+      <div class="script-block alt">
+        <p><strong>If the issue is the 6-month commitment:</strong> "If 6 months feels like a lot, I can shorten that to 5 or 4 months instead. In some cases I can even get it down to 2 months if that's what makes this work for you."</p>
+      </div>
+
+      <h3>Quick reference — DHJ Voucher pricing</h3>
       <ul>
-        <li>Anchor on the monthly value, not just the per-visit cost</li>
-        <li>Mention the guarantee before they ask</li>
-        <li>Pause after stating the price — let them respond</li>
+        <li>2 hours — $9 voucher | $59 MF | $35/hr ETF</li>
+        <li>3 hours — $19 voucher | $59 MF | $35/hr ETF</li>
+        <li>4 hours — $39 voucher | $59 MF | $35/hr ETF</li>
+        <li>6 hours — $79 voucher | $59 MF | $35/hr ETF</li>
       </ul>
+      <p class="hint">Use the <strong>DHJ Voucher</strong>, <strong>One-Time Cleaning</strong>, and <strong>Trial Cleaning</strong> calculators on the right to generate live quotes during the call.</p>
     </section>
 
     <section class="panel" id="booking">
-      <h1>Booking</h1>
-      <p class="hint">Move from "yes" to a scheduled appointment without friction.</p>
+      <h1>Phase 6: Booking</h1>
+      <p class="hint">Move quickly from agreement to a scheduled date — momentum matters most on a recycled lead, since hesitation here often means another multi-week gap before they answer again.</p>
+
       <div class="script-block">
-        <p>"Great — let's get this on the calendar. Looking at your preferred availability, I have [date/time options]. Which works best for you?"</p>
+        <p>"Awesome, let's get this locked in. I just need your card details to apply the voucher — are we using a credit or debit card? And can I grab your ZIP code so I can check cleaner availability in your area?"</p>
       </div>
-      <div class="script-block alt">
-        <p><strong>If hesitant:</strong> "No commitment needed beyond the first cleaning — if it's not a fit, you can cancel anytime. Let's just get the first one scheduled so you can see how it goes."</p>
+      <div class="script-block">
+        <p>"What date works best for your first cleaning? If you don't have an exact date yet, we can usually get someone out within 2 days — would (2 days from today) work, or would you rather set a standing appointment and adjust the date later?"</p>
       </div>
     </section>
 
     <section class="panel" id="booking-proper">
-      <h1>Booking Proper</h1>
-      <p class="hint">Confirming all details before ending the call.</p>
+      <h1>Phase 7: Booking Proper</h1>
+      <p class="hint">Lock in the final details and confirm the terms clearly — this protects against early cancellations and chargebacks, which are more common on recycled leads who may be on the fence.</p>
+
       <div class="script-block">
-        <p>"Perfect — to confirm, I've got you booked for [date] at [time], for a [X]-hour cleaning. You'll get a confirmation by text/email with your cleaner's details. Is the address on file still [address]?"</p>
+        <p>"Let's go over everything real quick. Your email is ___, phone number is ___, and address is ___ — are those correct? Your cleaning is booked for (date), for (X) hours, covered by your (voucher amount) voucher. Your priority areas are (___)."</p>
       </div>
-      <h3>Before hanging up, confirm:</h3>
-      <ul>
-        <li>Date, time, and duration</li>
-        <li>Address and entry instructions</li>
-        <li>Payment method on file</li>
-        <li>Membership terms (frequency, fee, cancellation policy)</li>
-      </ul>
+      <div class="script-block alt">
+        <p>"After this first cleaning, your ForeverClean membership starts and the first $59 (or negotiated rate) membership fee will be charged, renewing monthly until you cancel. Future cleanings will be around $23/hour. You can cancel anytime — if it's before the (6/5/4/2)-month minimum, the early termination fee is $35 multiplied by the hours of your first cleaning, which comes to (X &times; $35) in your case. Does all of that sound good?"</p>
+      </div>
     </section>
 
     <section class="panel" id="verbatim">
       <h1>Verbatim</h1>
-      <p class="hint">Exact phrasing for sensitive or commonly mishandled moments.</p>
+      <p class="hint">Exact phrasing for sensitive moments — read these as written.</p>
+
       <div class="script-block">
-        <p><strong>Cancellation policy:</strong> "You're free to cancel or pause anytime through your account — there's no long-term lock-in on the standard plan."</p>
+        <p><strong>Cancellation policy:</strong> "You can cancel or pause your membership anytime through your dashboard. If you cancel before completing the agreed minimum commitment, the early termination fee is a flat $35 per hour, based on the hours of your very first cleaning."</p>
       </div>
       <div class="script-block">
-        <p><strong>Guarantee:</strong> "If you're ever not happy with a cleaning, let us know within 24 hours and we'll send someone back out to make it right, free of charge."</p>
+        <p><strong>Membership renewal:</strong> "After your first appointment, the ForeverClean membership fee will be charged and will automatically renew each month at the agreed rate until you cancel."</p>
       </div>
       <div class="script-block">
-        <p><strong>Payment:</strong> "You're only charged after each cleaning is completed — nothing is billed upfront."</p>
+        <p><strong>Payment:</strong> "I'll need your card details now to apply the voucher and confirm the booking — you won't be charged anything beyond the voucher amount until after the cleaning is completed."</p>
       </div>
     </section>
 
     <section class="panel" id="value-statements">
       <h1>Value Statements</h1>
-      <p class="hint">Reusable lines that reinforce why the service is worth it — drop these in naturally throughout the call.</p>
+      <p class="hint">Use these to re-anchor value mid-call, especially with leads who are skeptical because "they've heard this before."</p>
       <ul class="value-list">
-        <li>"Every cleaner is background-checked and vetted before they're matched with customers."</li>
-        <li>"You get the same trusted cleaner whenever possible, so they learn your home and preferences."</li>
-        <li>"Membership pricing is lower than booking one-off cleanings every time."</li>
-        <li>"Our guarantee means you're never stuck with a cleaning you're not happy with."</li>
-        <li>"You're in control — adjust frequency, hours, or pause anytime from your account."</li>
+        <li>"We've actually lowered pricing since the last time you checked us out — your first cleaning is cheaper now than it would've been before."</li>
+        <li>"Every cleaner is background-checked, and 91.4% of jobs are completed by cleaners rated 4.5 stars or higher."</li>
+        <li>"With over 20,000 cleaners on the platform, over 90% of cleaning requests get picked up — and more than half within 50 minutes of booking."</li>
+        <li>"You're never locked in — cancel or pause anytime through your dashboard, no calls needed."</li>
+        <li>"Even if this isn't the right time for a membership, the one-time and trial options let you try us with zero long-term commitment."</li>
       </ul>
     </section>
 
     <section class="panel" id="objections">
-      <h1>Common Objections</h1>
-      <p class="hint">Standard pushback and how to respond.</p>
+      <h1>Common Objections — Phoenix</h1>
+      <p class="hint">These are written for recycled/aged leads specifically. The goal of each response: acknowledge without apologizing excessively, give them a reason "this time is different," and get to a small yes (price check, quick number) rather than a full re-pitch.</p>
 
       <div class="objection">
-        <h3>"It's too expensive."</h3>
-        <p>"I understand — totally fair. A lot of customers feel that way at first, but when you break it down, it's about $[X] per hour, which is in line with hiring an independent cleaner, except you get the guarantee, vetting, and flexibility on top. Would it help if we adjusted the hours or frequency to fit your budget better?"</p>
+        <h3>"I already said no to this before."</h3>
+        <p>"Totally fair, and I appreciate you being upfront. The reason I'm circling back is genuinely because the pricing's changed since then — it's noticeably lower now. If price was the original holdup, would it be worth 30 seconds to hear the new numbers? If it's a flat no regardless, no worries, I won't keep you."</p>
       </div>
 
       <div class="objection">
-        <h3>"I want to think about it."</h3>
-        <p>"Of course — no pressure at all. Can I ask what's giving you pause, just so I can make sure you have everything you need to decide? [Address concern.] If it helps, we can book the first cleaning now with no obligation — you can always cancel before it happens if you change your mind."</p>
+        <h3>"I don't remember signing up for this / how did you get my number?"</h3>
+        <p>"Good question — you'd looked into home cleaning services on one of our sites a little while back, which is how we have your info on file. I'm not trying to catch you off guard — just following up since it's been a few weeks. Would now be a bad time, or can I take 30 seconds?"</p>
       </div>
 
       <div class="objection">
-        <h3>"I'm worried about a stranger in my home."</h3>
-        <p>"That's completely understandable, and it's something we take seriously. Every cleaner goes through a background check before they're matched with customers, and you'll get their name and profile ahead of time so you know exactly who's coming."</p>
+        <h3>"It's too expensive" (still, after hearing new pricing)</h3>
+        <p>"I hear you. Just so I'm not missing something — is it the membership fee that's the sticking point, or the hourly rate? Because I can actually flex on the membership side — I can bring it down to $54, and in some cases $49. Would that change things, or is it more that cleaning services in general aren't in the budget right now?"</p>
       </div>
 
       <div class="objection">
-        <h3>"I already have a cleaner."</h3>
-        <p>"That's great that you have someone you trust! Out of curiosity, is there anything about your current setup you'd change if you could — pricing, reliability, flexibility? [Tailor pitch to gap.]"</p>
+        <h3>"I'm not interested" (flat, no reason given)</h3>
+        <p>"No problem at all. Can I ask — is that a 'not interested in cleaning services at all,' or more 'not interested in a membership specifically'? The reason I ask is we also do one-time cleanings with zero commitment, starting at $63/hour, if that's a better fit. If it's a hard no either way, I'll let you go — just wanted to check."</p>
       </div>
 
       <div class="objection">
-        <h3>"I don't want a subscription / membership."</h3>
-        <p>"Totally get it — if a recurring plan isn't the right fit, we do have a one-time cleaning option as well. Want me to run those numbers for you instead?"</p>
+        <h3>"I found someone else already."</h3>
+        <p>"That's great, glad you got that sorted! Quick thought though — a lot of our customers actually keep us on file as a backup, since our network can usually get someone out within a day or two if their regular cleaner ever falls through or moves. Would it be worth grabbing the $9 trial just to have us as an option, no commitment attached?"</p>
+      </div>
+
+      <div class="objection">
+        <h3>"Now's not a good time / I'm busy" (used to brush off the call)</h3>
+        <p>"Totally understand — I'll be quick. Can I just ask one thing: if the timing were better, is this something you'd still want? If yes, I can text you the pricing right now so you're not stuck on the phone, and you can book whenever it's convenient. If it's a no regardless of timing, that's totally fine too — just let me know."</p>
+      </div>
+
+      <div class="objection">
+        <h3>"Can you just send me the info / a link instead?"</h3>
+        <p>"Sure thing, happy to. Real quick though — while I've got you, can I just confirm your bedroom/bathroom count so the pricing I send is actually accurate to your place, instead of a generic range? Takes 10 seconds and means the info is actually useful when you look at it later."</p>
+      </div>
+
+      <div class="objection">
+        <h3>"This sounds like a scam / how do I know this is legit?"</h3>
+        <p>"Fair to be cautious, especially with an unexpected call. We're Homeaglow — been around over 10 years, 2.6 million cleanings completed, every cleaner is background-checked. If it helps, I can send the booking confirmation to your email right now so you can see it's tied to a real account before any charge happens."</p>
+      </div>
+
+      <div class="objection">
+        <h3>"I need to think about it / talk to my spouse."</h3>
+        <p>"Of course, makes sense. While I have you — would it help if I hold one of the $9 promo vouchers on your file for the next 24 hours? That way if you both decide to go ahead, the pricing's already locked in and you're not starting from scratch. Want me to do that?"</p>
       </div>
     </section>
 
     <section class="panel" id="discovery-questions">
       <h1>Discovery Questions</h1>
-      <p class="hint">Open-ended questions to understand needs and build rapport.</p>
+      <p class="hint">Use these to quickly diagnose what kind of recycled lead you're talking to.</p>
       <ul class="value-list">
-        <li>"What made you decide to look into a cleaning service?"</li>
-        <li>"Have you used a cleaning service before? What did you like or not like about it?"</li>
-        <li>"How would you describe the day-to-day in your home — busy household, pets, kids?"</li>
-        <li>"Are there any areas of the home that tend to need the most attention?"</li>
-        <li>"What does your ideal cleaning schedule look like?"</li>
-        <li>"Is there anything that would make this an easy yes for you today?"</li>
+        <li>"When you first looked into this, what was the main thing that gave you pause?"</li>
+        <li>"Has anything changed on your end since then — new place, more time, different budget?"</li>
+        <li>"If price were a non-issue, is this something you'd want for your home?"</li>
+        <li>"Are you currently using any cleaning service, or handling it yourself?"</li>
+        <li>"What would make this an easy yes for you today?"</li>
       </ul>
     </section>
 
@@ -209,28 +338,33 @@
       <h1>FAQs</h1>
 
       <div class="faq">
-        <h3>How is pricing determined?</h3>
-        <p>Pricing is based on the number of hours needed per cleaning, which depends on home size, condition, and frequency selected. Membership fee is a flat monthly add-on.</p>
+        <h3>Why is this lead being called again?</h3>
+        <p>This is a recycled/aged lead (2-5+ weeks old) that didn't convert on the first attempt. Pricing or offer details may have changed since the original call, which is the basis for re-engagement.</p>
       </div>
 
       <div class="faq">
-        <h3>Can the customer change their schedule later?</h3>
-        <p>Yes — frequency, hours, and timing can all be adjusted from the account after the first cleaning.</p>
+        <h3>What if the customer doesn't remember any prior interaction?</h3>
+        <p>That's expected and common. Briefly explain they looked into cleaning services on one of our sites previously — don't over-explain or sound defensive about it.</p>
       </div>
 
       <div class="faq">
-        <h3>What happens if they cancel early?</h3>
-        <p>Depending on the cohort/plan, an Early Termination Fee (ETF) may apply if cancelling before the minimum commitment is met. Use the ETF Calculator to estimate this.</p>
+        <h3>How low can the membership fee go?</h3>
+        <p>Standard is $59/month. It can be negotiated down to $54, and as a final step to $49 if that's still a blocker.</p>
       </div>
 
       <div class="faq">
-        <h3>Do they need to be home during the cleaning?</h3>
-        <p>No — many customers provide entry instructions (lockbox, code, key) and aren't home during the visit.</p>
+        <h3>How flexible is the commitment term?</h3>
+        <p>Standard minimum is 6 months. It can be reduced to 5 or 4 months, and in special cases down to 2 months if needed to close.</p>
       </div>
 
       <div class="faq">
-        <h3>What's included in the membership fee?</h3>
-        <p>The membership fee covers account management, the satisfaction guarantee, rebooking support, and access to the cleaner network — it's separate from the per-visit cleaning cost.</p>
+        <h3>What's the difference between the three offerings?</h3>
+        <p>DHJ Voucher + ForeverClean membership is the main recurring offer with the lowest ongoing rate ($23/hr) but has a commitment term and ETF. One-Time Cleaning ($63/hr) has zero commitment. Trial Cleaning ($52.50/hr) gives a 30-day window to decide before any membership starts.</p>
+      </div>
+
+      <div class="faq">
+        <h3>What's the ETF if they cancel early?</h3>
+        <p>$35 per hour, based on the hours of the first cleaning — applies only to the DHJ Voucher + membership offer.</p>
       </div>
     </section>
 
@@ -239,15 +373,15 @@
       <div class="manual-card">
         <h3 class="manual-heading">How to use this guide:</h3>
         <ol class="manual-list">
-          <li>Start with <strong>Opening Spiel</strong> on every call.</li>
-          <li>Move to <strong>Discovery</strong> to understand the customer's needs.</li>
-          <li>Use <strong>Data Gathering</strong> to collect required fields in your CRM.</li>
-          <li>Present the appropriate <strong>Sales Pitch</strong> based on plan type.</li>
-          <li>Complete <strong>Booking</strong> and confirm with <strong>Booking Proper</strong>.</li>
-          <li>Read <strong>Verbatim</strong> scripts exactly as written when required.</li>
-          <li>Use <strong>Value Statements</strong> and <strong>Common Objections</strong> to handle pushback.</li>
-          <li>Refer to <strong>Discovery Questions</strong> and <strong>FAQs</strong> as needed throughout the call.</li>
-          <li>Use the calculator tools on the right toolbar for pricing, ETF, one-time, and negotiation quotes.</li>
+          <li>Start with <strong>Opening Spiel</strong> — pick the opener that fits the lead's tone (curiosity, direct value, or handling pushback).</li>
+          <li>Move to <strong>Discovery</strong> to find out why they didn't book before and whether that reason still applies.</li>
+          <li>Use <strong>Elevator Pitch</strong> to frame "what's changed" rather than re-explaining the whole service.</li>
+          <li>Use <strong>Data Gathering</strong> to confirm bedrooms/bathrooms and frequency.</li>
+          <li>Present <strong>Sales Pitch</strong> — lead with the DHJ Voucher offer, fall back to One-Time or Trial if needed.</li>
+          <li>Use the floating calculators (right side) for DHJ Voucher, One-Time Cleaning, Trial Cleaning, and Negotiation quotes.</li>
+          <li>If they push back, refer to <strong>Common Objections — Phoenix</strong> for fresh rebuttal scripts.</li>
+          <li>Once they agree, move to <strong>Booking</strong> and <strong>Booking Proper</strong> to confirm and close.</li>
+          <li>Read <strong>Verbatim</strong> scripts exactly as written for cancellation, renewal, and payment terms.</li>
         </ol>
       </div>
     </section>
@@ -257,7 +391,7 @@
 
 <!-- Floating right-side toolbar -->
 <div class="toolbar">
-  <button class="toolbar-btn" data-modal="cleaningModal" type="button" title="Cleaning Calculator" aria-label="Cleaning Calculator">
+  <button class="toolbar-btn" data-modal="cleaningModal" type="button" title="DHJ Voucher Calculator" aria-label="DHJ Voucher Calculator">
     <span class="toolbar-icon">📄</span>
   </button>
   <button class="toolbar-btn" data-modal="negotiationModal" type="button" title="Negotiation Calculator" aria-label="Negotiation Calculator">
@@ -266,7 +400,7 @@
   <button class="toolbar-btn" data-modal="etfModal" type="button" title="ETF Calculator" aria-label="ETF Calculator">
     <span class="toolbar-icon">🕐</span>
   </button>
-  <button class="toolbar-btn" data-modal="oneTimeModal" type="button" title="One-Time Cleaning Calculator" aria-label="One-Time Cleaning Calculator">
+  <button class="toolbar-btn" data-modal="oneTimeModal" type="button" title="One-Time / Trial Cleaning Calculator" aria-label="One-Time / Trial Cleaning Calculator">
     <span class="toolbar-icon">✓</span>
   </button>
   <button class="toolbar-btn" id="notesBtn" type="button" title="Notes" aria-label="Notes">
@@ -276,56 +410,46 @@
 
 <!-- ===================== MODALS ===================== -->
 
-<!-- Cleaning Calculator -->
+<!-- DHJ Voucher Calculator -->
 <div class="modal-overlay" id="cleaningModal">
   <div class="modal">
     <button class="modal-close" data-close>&times;</button>
-    <h2>Cleaning Calculator</h2>
-    <h3 class="modal-sub">Home Details</h3>
+    <h2>DHJ Voucher Calculator</h2>
+    <h3 class="modal-sub">ForeverClean Membership Pricing</h3>
 
     <div class="form-row">
-      <label for="cc-bedrooms">Bedrooms</label>
-      <input type="number" id="cc-bedrooms" min="0" value="2">
-    </div>
-
-    <div class="form-row">
-      <label for="cc-bathrooms">Bathrooms</label>
-      <input type="number" id="cc-bathrooms" min="0" value="1" step="0.5">
-    </div>
-
-    <div class="form-row">
-      <label for="cc-preferred-hours">Customer's Preferred Hours (optional)</label>
-      <input type="number" id="cc-preferred-hours" min="0" step="0.5" placeholder="Leave blank to use estimate">
-    </div>
-
-    <div class="form-row">
-      <label for="cc-premium-hours">Premium Hours (deep clean / extras)</label>
-      <input type="number" id="cc-premium-hours" min="0" step="0.5" value="0">
-    </div>
-
-    <div class="form-row">
-      <label for="cc-frequency">Frequency (times per month)</label>
-      <select id="cc-frequency">
-        <option value="1">1x / month</option>
-        <option value="2">2x / month</option>
-        <option value="3">3x / month</option>
-        <option value="4" selected>4x / month</option>
+      <label for="cc-hours">First Cleaning Duration</label>
+      <select id="cc-hours">
+        <option value="2">2 hours — $9 voucher</option>
+        <option value="3">3 hours — $19 voucher</option>
+        <option value="4" selected>4 hours — $39 voucher</option>
+        <option value="6">6 hours — $79 voucher</option>
       </select>
     </div>
 
     <div class="form-row">
       <label for="cc-membership-fee">Membership Fee</label>
       <select id="cc-membership-fee">
-        <option value="59" selected>$59/mo</option>
-        <option value="49">$49/mo</option>
-        <option value="39">$39/mo</option>
+        <option value="59" selected>$59/mo (standard)</option>
+        <option value="54">$54/mo (1st negotiation)</option>
+        <option value="49">$49/mo (final negotiation)</option>
       </select>
     </div>
 
-    <button class="calc-btn" id="cc-calculate">Calculate Estimate</button>
+    <div class="form-row">
+      <label for="cc-frequency">Frequency (times per month)</label>
+      <select id="cc-frequency">
+        <option value="1">1x / month</option>
+        <option value="2" selected>2x / month</option>
+        <option value="3">3x / month</option>
+        <option value="4">4x / month</option>
+      </select>
+    </div>
+
+    <button class="calc-btn" id="cc-calculate">Calculate Quote</button>
 
     <div class="result-box" id="cc-result">
-      <p class="result-placeholder">Enter home details and calculate to see an estimate.</p>
+      <p class="result-placeholder">Select hours, membership fee, and frequency to see the full quote.</p>
     </div>
   </div>
 </div>
@@ -335,46 +459,42 @@
   <div class="modal">
     <button class="modal-close" data-close>&times;</button>
     <h2>ETF Calculator</h2>
-    <h3 class="modal-sub">Early Termination Fee Calculation</h3>
+    <h3 class="modal-sub">Early Termination Fee — $35/hr</h3>
 
     <div class="form-row">
-      <label for="etf-cohort">Select Cohort</label>
-      <select id="etf-cohort">
-        <option value="35" data-mf="59" selected>Cohort 3 ($59 MF, $35/hr ETF rate)</option>
-        <option value="30" data-mf="49">Cohort 2 ($49 MF, $30/hr ETF rate)</option>
-        <option value="25" data-mf="39">Cohort 1 ($39 MF, $25/hr ETF rate)</option>
+      <label for="etf-hours">First Cleaning Hours</label>
+      <select id="etf-hours">
+        <option value="2">2 hours</option>
+        <option value="3">3 hours</option>
+        <option value="4" selected>4 hours</option>
+        <option value="6">6 hours</option>
       </select>
-    </div>
-
-    <div class="form-row">
-      <label for="etf-hours">Initial Cleaning Hours</label>
-      <input type="number" id="etf-hours" min="0" step="0.5" value="3">
     </div>
 
     <button class="calc-btn" id="etf-calculate">Calculate ETF</button>
 
     <div class="result-box" id="etf-result">
-      <p class="result-placeholder">Enter hours and select cohort to calculate.</p>
+      <p class="result-placeholder">Select hours to calculate the early termination fee.</p>
     </div>
   </div>
 </div>
 
-<!-- One-Time Cleaning Calculator -->
+<!-- One-Time / Trial Cleaning Calculator -->
 <div class="modal-overlay" id="oneTimeModal">
   <div class="modal">
     <button class="modal-close" data-close>&times;</button>
-    <h2>One-Time Cleaning Calculator</h2>
-    <h3 class="modal-sub">One-Time Cleaning Rates</h3>
+    <h2>One-Time / Trial Calculator</h2>
+    <h3 class="modal-sub">No-Commitment Options</h3>
 
     <div class="form-row">
-      <label for="ot-hours">Hours for One-Time Cleaning</label>
+      <label for="ot-hours">Hours Needed</label>
       <input type="number" id="ot-hours" min="1" step="0.5" value="3">
     </div>
 
-    <button class="calc-btn" id="ot-calculate">Calculate One-Time Cleaning</button>
+    <button class="calc-btn" id="ot-calculate">Calculate Options</button>
 
     <div class="result-box" id="ot-result">
-      <p class="result-placeholder">Enter hours to see options.</p>
+      <p class="result-placeholder">Enter hours to compare One-Time and Trial pricing.</p>
     </div>
   </div>
 </div>
@@ -384,28 +504,24 @@
   <div class="modal">
     <button class="modal-close" data-close>&times;</button>
     <h2>Negotiation Calculator</h2>
-    <h3 class="modal-sub">Negotiated Membership Price</h3>
+    <h3 class="modal-sub">Membership Fee &amp; Commitment Term</h3>
 
     <div class="form-row">
-      <label for="neg-current-plan">Current Membership Plan</label>
-      <select id="neg-current-plan">
-        <option value="59" selected>$59/mo Plan</option>
-        <option value="49">$49/mo Plan</option>
-        <option value="39">$39/mo Plan</option>
+      <label for="neg-mf">Negotiated Membership Fee</label>
+      <select id="neg-mf">
+        <option value="59" selected>$59/mo (standard)</option>
+        <option value="54">$54/mo</option>
+        <option value="49">$49/mo</option>
       </select>
     </div>
 
     <div class="form-row">
-      <label for="neg-price">Negotiated Monthly Price</label>
-      <input type="number" id="neg-price" min="0" step="1" placeholder="e.g. 39">
-    </div>
-
-    <div class="form-row">
-      <label for="neg-term">Contract Term</label>
+      <label for="neg-term">Commitment Term</label>
       <select id="neg-term">
-        <option value="6" selected>6 Months</option>
-        <option value="5">5 Months</option>
-        <option value="4">4 Months</option>
+        <option value="6" selected>6 months (standard)</option>
+        <option value="5">5 months</option>
+        <option value="4">4 months</option>
+        <option value="2">2 months (special case)</option>
       </select>
     </div>
 
@@ -413,7 +529,7 @@
 
     <div class="result-box" id="neg-result">
       <p class="result-label">Negotiation Result</p>
-      <p class="result-total">Negotiated Total: <span id="neg-total">$0.00</span></p>
+      <p class="result-total">Total over term: <span id="neg-total">$0.00</span></p>
     </div>
   </div>
 </div>
@@ -435,3 +551,9 @@
 <script src="script.js"></script>
 </body>
 </html>
+
+
+
+
+
+

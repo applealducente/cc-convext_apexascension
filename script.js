@@ -73,108 +73,102 @@ if (adminBtn) {
 }
 
 // ---------- Pricing constants ----------
-// Hourly rate is tied to membership fee tier.
-const HOURLY_RATES = {
-  59: 35,
-  49: 30,
-  39: 25,
+const ETF_RATE = 35; // $/hr, applies to DHJ Voucher offer
+const DISCOUNTED_RATE = 23; // $/hr after membership kicks in
+const ONE_TIME_RATE = 63; // $/hr, no commitment
+const TRIAL_RATE = 52.5; // $/hr, 30-day trial
+
+// DHJ Voucher pricing by hours
+const DHJ_VOUCHERS = {
+  2: 9,
+  3: 19,
+  4: 39,
+  6: 79,
 };
 
-// One-time cleaning rate (no membership) is a flat premium rate.
-const ONE_TIME_RATE = 45;
+// National average reference price (approximate, for "regular price" framing)
+const NATIONAL_AVG = {
+  2: 150,
+  3: 225,
+  4: 300,
+  6: 450,
+};
 
-// Base hours estimate from bedrooms/bathrooms.
-function estimateHours(bedrooms, bathrooms) {
-  const base = 1.5; // base hours for a small home
-  return base + (bedrooms * 0.75) + (bathrooms * 0.5);
-}
-
-// ---------- Cleaning Calculator ----------
+// ---------- DHJ Voucher Calculator ----------
 document.getElementById('cc-calculate').addEventListener('click', () => {
-  const bedrooms = parseFloat(document.getElementById('cc-bedrooms').value) || 0;
-  const bathrooms = parseFloat(document.getElementById('cc-bathrooms').value) || 0;
-  const preferredHours = parseFloat(document.getElementById('cc-preferred-hours').value);
-  const premiumHours = parseFloat(document.getElementById('cc-premium-hours').value) || 0;
-  const frequency = parseInt(document.getElementById('cc-frequency').value, 10);
+  const hours = parseInt(document.getElementById('cc-hours').value, 10);
   const membershipFee = parseInt(document.getElementById('cc-membership-fee').value, 10);
+  const frequency = parseInt(document.getElementById('cc-frequency').value, 10);
 
-  const rate = HOURLY_RATES[membershipFee] || 35;
-
-  const estimatedHours = estimateHours(bedrooms, bathrooms);
-  const baseHours = (preferredHours && preferredHours > 0) ? preferredHours : estimatedHours;
-  const totalHours = baseHours + premiumHours;
-
-  const perVisitCost = totalHours * rate;
-  const monthlyCleaningCost = perVisitCost * frequency;
+  const voucherPrice = DHJ_VOUCHERS[hours];
+  const nationalAvg = NATIONAL_AVG[hours];
+  const perVisitDiscounted = hours * DISCOUNTED_RATE;
+  const monthlyCleaningCost = perVisitDiscounted * frequency;
   const monthlyTotal = monthlyCleaningCost + membershipFee;
+  const etf = hours * ETF_RATE;
 
   const resultBox = document.getElementById('cc-result');
   resultBox.innerHTML = `
-    <p class="result-label">Estimate</p>
-    <div class="result-row"><span>Estimated hours (home size)</span><span>${estimatedHours.toFixed(2)} hrs</span></div>
-    <div class="result-row"><span>Hours used for quote</span><span>${baseHours.toFixed(2)} hrs</span></div>
-    <div class="result-row"><span>Premium / extra hours</span><span>${premiumHours.toFixed(2)} hrs</span></div>
-    <div class="result-row"><span>Total hours per visit</span><span>${totalHours.toFixed(2)} hrs</span></div>
-    <div class="result-row"><span>Rate</span><span>$${rate.toFixed(2)}/hr</span></div>
-    <div class="result-row"><span>Cost per visit</span><span>$${perVisitCost.toFixed(2)}</span></div>
+    <p class="result-label">DHJ Voucher Quote</p>
+    <div class="result-row"><span>First cleaning</span><span>${hours} hrs</span></div>
+    <div class="result-row"><span>Regular price (national avg)</span><span>$${nationalAvg.toFixed(2)}</span></div>
+    <div class="result-row total"><span>Voucher price (first cleaning)</span><span>$${voucherPrice.toFixed(2)}</span></div>
+    <div class="result-row"><span>Discounted rate after membership</span><span>$${DISCOUNTED_RATE.toFixed(2)}/hr</span></div>
+    <div class="result-row"><span>Cost per future visit</span><span>$${perVisitDiscounted.toFixed(2)}</span></div>
     <div class="result-row"><span>Visits per month</span><span>${frequency}x</span></div>
     <div class="result-row"><span>Membership fee</span><span>$${membershipFee.toFixed(2)}/mo</span></div>
     <div class="result-row total"><span>Estimated monthly total</span><span>$${monthlyTotal.toFixed(2)}</span></div>
+    <div class="result-row"><span>ETF if cancelled early ($35/hr)</span><span>$${etf.toFixed(2)}</span></div>
   `;
 });
 
 // ---------- ETF Calculator ----------
 document.getElementById('etf-calculate').addEventListener('click', () => {
-  const cohortSelect = document.getElementById('etf-cohort');
-  const selectedOption = cohortSelect.options[cohortSelect.selectedIndex];
-  const etfRate = parseFloat(selectedOption.value);
-  const membershipFee = parseFloat(selectedOption.dataset.mf);
-  const hours = parseFloat(document.getElementById('etf-hours').value) || 0;
-
-  const etfAmount = hours * etfRate;
+  const hours = parseInt(document.getElementById('etf-hours').value, 10);
+  const etfAmount = hours * ETF_RATE;
 
   const resultBox = document.getElementById('etf-result');
   resultBox.innerHTML = `
     <p class="result-label">ETF Result</p>
-    <div class="result-row"><span>Cohort membership fee</span><span>$${membershipFee.toFixed(2)}/mo</span></div>
-    <div class="result-row"><span>ETF rate</span><span>$${etfRate.toFixed(2)}/hr</span></div>
-    <div class="result-row"><span>Initial cleaning hours</span><span>${hours.toFixed(2)} hrs</span></div>
+    <div class="result-row"><span>First cleaning hours</span><span>${hours} hrs</span></div>
+    <div class="result-row"><span>ETF rate</span><span>$${ETF_RATE.toFixed(2)}/hr</span></div>
     <div class="result-row total"><span>Early Termination Fee</span><span>$${etfAmount.toFixed(2)}</span></div>
   `;
 });
 
-// ---------- One-Time Cleaning Calculator ----------
+// ---------- One-Time / Trial Calculator ----------
 document.getElementById('ot-calculate').addEventListener('click', () => {
   const hours = parseFloat(document.getElementById('ot-hours').value) || 0;
 
-  const standardTotal = hours * ONE_TIME_RATE;
-  const deepCleanTotal = hours * ONE_TIME_RATE + (hours * 10); // deep clean adds $10/hr
-  const moveTotal = hours * ONE_TIME_RATE + (hours * 15); // move in/out adds $15/hr
+  const oneTimeTotal = hours * ONE_TIME_RATE;
+  const trialTotal = hours * TRIAL_RATE;
 
   const resultBox = document.getElementById('ot-result');
   resultBox.innerHTML = `
-    <p class="result-label">One-Time Options (${hours.toFixed(2)} hrs)</p>
+    <p class="result-label">Options for ${hours.toFixed(2)} hrs</p>
     <div class="ot-option">
-      <span class="ot-label">Standard clean — $${ONE_TIME_RATE}/hr</span>
-      <span class="ot-price">$${standardTotal.toFixed(2)}</span>
+      <span class="ot-label">One-Time Cleaning — $${ONE_TIME_RATE.toFixed(2)}/hr</span>
+      <span class="ot-price">$${oneTimeTotal.toFixed(2)}</span>
     </div>
     <div class="ot-option">
-      <span class="ot-label">Deep clean — $${(ONE_TIME_RATE + 10)}/hr</span>
-      <span class="ot-price">$${deepCleanTotal.toFixed(2)}</span>
-    </div>
-    <div class="ot-option">
-      <span class="ot-label">Move in/out — $${(ONE_TIME_RATE + 15)}/hr</span>
-      <span class="ot-price">$${moveTotal.toFixed(2)}</span>
+      <span class="ot-label">Trial Cleaning — $${TRIAL_RATE.toFixed(2)}/hr</span>
+      <span class="ot-price">$${trialTotal.toFixed(2)}</span>
     </div>
   `;
 });
 
 // ---------- Negotiation Calculator ----------
 document.getElementById('neg-calculate').addEventListener('click', () => {
-  const negotiatedPrice = parseFloat(document.getElementById('neg-price').value) || 0;
+  const membershipFee = parseFloat(document.getElementById('neg-mf').value) || 0;
   const term = parseInt(document.getElementById('neg-term').value, 10);
 
-  const total = negotiatedPrice * term;
+  const total = membershipFee * term;
 
-  document.getElementById('neg-total').textContent = `$${total.toFixed(2)}`;
+  const resultBox = document.getElementById('neg-result');
+  resultBox.innerHTML = `
+    <p class="result-label">Negotiation Result</p>
+    <div class="result-row"><span>Membership fee</span><span>$${membershipFee.toFixed(2)}/mo</span></div>
+    <div class="result-row"><span>Commitment term</span><span>${term} months</span></div>
+    <div class="result-row total"><span>Total over term</span><span>$${total.toFixed(2)}</span></div>
+  `;
 });
