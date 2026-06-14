@@ -117,7 +117,7 @@ document.getElementById('cc-calculate').addEventListener('click', () => {
       <div class="result-row"><span>Regular price (national avg)</span><span>$${nationalAvg.toFixed(2)}</span></div>
       <div class="result-row total"><span>Voucher price (first cleaning)</span><span>$${voucherPrice.toFixed(2)}</span></div>
       <div class="result-row"><span>ETF if cancelled early ($35/hr)</span><span>$${etf.toFixed(2)}</span></div>
-      <p class="result-placeholder" style="margin-top:10px;">The $57.75/hr discounted rate isn't available at ${hours} hrs — recommend 3 hrs or more for future cleanings, or quote a different duration.</p>
+      <p class="result-placeholder" style="margin-top:10px;">The $57.75/hr discounted rate isn't available at ${hours} hrs. Recommend 3 hrs or more for future cleanings, or quote a different duration.</p>
     `;
     return;
   }
@@ -167,11 +167,11 @@ document.getElementById('ot-calculate').addEventListener('click', () => {
   let html = `
     <p class="result-label">Options for ${hours.toFixed(2)} hrs</p>
     <div class="ot-option">
-      <span class="ot-label">Trial Cleaning — $${TRIAL_RATE.toFixed(2)}/hr (30-day trial)</span>
+      <span class="ot-label">Trial Cleaning: $${TRIAL_RATE.toFixed(2)}/hr (30-day trial)</span>
       <span class="ot-price">$${trialTotal.toFixed(2)}</span>
     </div>
     <div class="ot-option">
-      <span class="ot-label">Regular Cleaning — $${ONE_TIME_RATE.toFixed(2)}/hr (no commitment)</span>
+      <span class="ot-label">Regular Cleaning: $${ONE_TIME_RATE.toFixed(2)}/hr (no commitment)</span>
       <span class="ot-price">$${regularTotal.toFixed(2)}</span>
     </div>
   `;
@@ -179,12 +179,12 @@ document.getElementById('ot-calculate').addEventListener('click', () => {
   if (discountAvailable) {
     html += `
     <div class="ot-option">
-      <span class="ot-label">Regular Cleaning, Discounted — $${DISCOUNTED_RATE.toFixed(2)}/hr</span>
+      <span class="ot-label">Regular Cleaning, Discounted: $${DISCOUNTED_RATE.toFixed(2)}/hr</span>
       <span class="ot-price">$${discountedTotal.toFixed(2)}</span>
     </div>
     `;
   } else {
-    html += `<p class="result-placeholder" style="margin-top:8px;">Discounted rate ($${DISCOUNTED_RATE.toFixed(2)}/hr) not available at ${hours} hrs — minimum 3 hrs.</p>`;
+    html += `<p class="result-placeholder" style="margin-top:8px;">Discounted rate ($${DISCOUNTED_RATE.toFixed(2)}/hr) not available at ${hours} hrs. Minimum 3 hrs.</p>`;
   }
 
   resultBox.innerHTML = html;
