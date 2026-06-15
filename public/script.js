@@ -235,32 +235,19 @@ function attachCalculatorHandlers() {
     const voucherPrice = rates.dhjVouchers[hours];
     const nationalAvg = rates.nationalAvg[hours];
     const etf = parseFloat(hours) * rates.etfRate;
-    const isDiscountUnavailable = rates.discountedUnavailableHours.includes(parseFloat(hours));
+    const membershipRate = rates.membershipDiscountedRate;
 
-    const resultBox = document.getElementById('cc-result');
-
-    if (isDiscountUnavailable) {
-      resultBox.innerHTML = `
-        <p class="result-label">DHJ Voucher Quote</p>
-        <div class="result-row"><span>First cleaning</span><span>${hours} hrs</span></div>
-        <div class="result-row"><span>Regular price (national avg)</span><span>$${nationalAvg.toFixed(2)}</span></div>
-        <div class="result-row total"><span>Voucher price (first cleaning)</span><span>$${voucherPrice.toFixed(2)}</span></div>
-        <div class="result-row"><span>ETF if cancelled early ($${rates.etfRate}/hr)</span><span>$${etf.toFixed(2)}</span></div>
-        <p class="result-placeholder" style="margin-top:10px;">The $${rates.discountedRate}/hr discounted rate isn't available at ${hours} hrs. Recommend 3 hrs or more for future cleanings, or quote a different duration.</p>
-      `;
-      return;
-    }
-
-    const perVisitDiscounted = parseFloat(hours) * rates.discountedRate;
+    const perVisitDiscounted = parseFloat(hours) * membershipRate;
     const monthlyCleaningCost = perVisitDiscounted * frequency;
     const monthlyTotal = monthlyCleaningCost + membershipFee;
 
+    const resultBox = document.getElementById('cc-result');
     resultBox.innerHTML = `
       <p class="result-label">DHJ Voucher Quote</p>
       <div class="result-row"><span>First cleaning</span><span>${hours} hrs</span></div>
       <div class="result-row"><span>Regular price (national avg)</span><span>$${nationalAvg.toFixed(2)}</span></div>
       <div class="result-row total"><span>Voucher price (first cleaning)</span><span>$${voucherPrice.toFixed(2)}</span></div>
-      <div class="result-row"><span>Discounted rate after membership</span><span>$${rates.discountedRate.toFixed(2)}/hr</span></div>
+      <div class="result-row"><span>Discounted rate after membership</span><span>$${membershipRate.toFixed(2)}/hr</span></div>
       <div class="result-row"><span>Cost per future visit</span><span>$${perVisitDiscounted.toFixed(2)}</span></div>
       <div class="result-row"><span>Visits per month</span><span>${frequency}x</span></div>
       <div class="result-row"><span>Membership fee</span><span>$${membershipFee.toFixed(2)}/mo</span></div>

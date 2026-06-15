@@ -165,6 +165,7 @@ function renderRatesEditor() {
   const rates = CONTENT.rates;
 
   document.getElementById('rate-etf').value = rates.etfRate;
+  document.getElementById('rate-membership-discounted').value = rates.membershipDiscountedRate;
   document.getElementById('rate-discounted').value = rates.discountedRate;
   document.getElementById('rate-onetime').value = rates.oneTimeRate;
   document.getElementById('rate-trial').value = rates.trialRate;
@@ -179,6 +180,9 @@ function renderRatesEditor() {
   // Live-sync simple rate fields back into CONTENT on input
   document.getElementById('rate-etf').addEventListener('input', (e) => {
     rates.etfRate = parseFloat(e.target.value) || 0;
+  });
+  document.getElementById('rate-membership-discounted').addEventListener('input', (e) => {
+    rates.membershipDiscountedRate = parseFloat(e.target.value) || 0;
   });
   document.getElementById('rate-discounted').addEventListener('input', (e) => {
     rates.discountedRate = parseFloat(e.target.value) || 0;
