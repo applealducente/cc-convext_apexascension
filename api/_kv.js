@@ -10,6 +10,22 @@ function isConfigured() {
   return Boolean(KV_URL && KV_TOKEN);
 }
 
+// Try to JSON.parse a value; if the result is still a string that looks
+// like JSON, parse again (handles values that were accidentally
+// double-encoded). Returns the original string if it's not JSON at all.
+function parseMaybeDouble(raw) {
+  let value = raw;
+  for (let i = 0; i < 2; i++) {
+    if (typeof value !== 'string') break;
+    try {
+      value = JSON.parse(value);
+    } catch (e) {
+      break;
+    }
+  }
+  return value;
+}
+
 async function kvGet(key) {
   if (!isConfigured()) {
     throw new Error('KV environment variables are not set.');
@@ -26,11 +42,7 @@ async function kvGet(key) {
   const data = await res.json();
   if (data.result == null) return null;
 
-  try {
-    return JSON.parse(data.result);
-  } catch (e) {
-    return data.result;
-  }
+  return parseMaybeDouble(data.result);
 }
 
 async function kvSet(key, value) {
