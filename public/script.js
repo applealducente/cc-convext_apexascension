@@ -25,9 +25,36 @@ function renderTabs() {
   tabnav.innerHTML = '';
   content.innerHTML = '';
 
-  const LOCK_TARGET_ID = 'sales-pitch';
-  const LOCK_GATE_ID = 'discovery';
-  let discoveryDone = sessionStorage.getItem('phoenix-discovery-done') === 'true';
+  // Lock chain: each stage must be confirmed before its "unlocks" tabs become clickable.
+  // gate: the tab where the confirm button appears.
+  // doneKey: sessionStorage key tracking confirmation.
+  // unlocks: tab ids that stay locked until this stage is confirmed.
+  const LOCK_STAGES = [
+    { gate: 'discovery', doneKey: 'phoenix-discovery-done', unlocks: ['sales-pitch'] },
+    { gate: 'sales-pitch', doneKey: 'phoenix-salespitch-done', unlocks: ['booking', 'booking-proper'] },
+  ];
+  // Verbatim needs BOTH booking and booking-proper confirmed; handled separately below.
+  const VERBATIM_ID = 'verbatim';
+  const VERBATIM_REQUIRES = ['phoenix-booking-done', 'phoenix-bookingproper-done'];
+
+  function isDone(key) {
+    return sessionStorage.getItem(key) === 'true';
+  }
+
+  function lockedTabIds() {
+    const locked = new Set();
+    LOCK_STAGES.forEach(stage => {
+      if (!isDone(stage.doneKey)) {
+        stage.unlocks.forEach(id => locked.add(id));
+      }
+    });
+    if (!VERBATIM_REQUIRES.every(isDone)) {
+      locked.add(VERBATIM_ID);
+    }
+    return locked;
+  }
+
+  const locked = lockedTabIds();
 
   CONTENT.tabs.forEach((tab, index) => {
     const btn = document.createElement('button');
@@ -35,10 +62,9 @@ function renderTabs() {
     btn.dataset.target = tab.id;
     btn.textContent = tab.label;
 
-    const isLockedTab = tab.id === LOCK_TARGET_ID;
-    if (isLockedTab && !discoveryDone) {
+    if (locked.has(tab.id)) {
       btn.classList.add('tab-locked');
-      btn.title = 'Complete Discovery first';
+      btn.title = 'Complete the previous step first';
     }
 
     btn.addEventListener('click', () => {
@@ -52,6 +78,7 @@ function renderTabs() {
       document.getElementById('panel-' + tab.id).classList.add('active');
       pageTitle.textContent = tab.label;
       window.scrollTo({ top: 0, behavior: 'instant' });
+      updateAllFloatingGates();
     });
     tabnav.appendChild(btn);
 
@@ -62,62 +89,118 @@ function renderTabs() {
     content.appendChild(section);
   });
 
-  setupDiscoveryFloatingGate(discoveryDone, LOCK_GATE_ID, LOCK_TARGET_ID);
+  setupLockChainGates(LOCK_STAGES, VERBATIM_ID, VERBATIM_REQUIRES);
 
   if (CONTENT.tabs.length > 0) {
     pageTitle.textContent = CONTENT.tabs[0].label;
   }
 }
 
-function setupDiscoveryFloatingGate(discoveryDoneInitial, gateTabId, targetTabId) {
-  let discoveryDone = discoveryDoneInitial;
+function setupLockChainGates(stages, verbatimId, verbatimRequires) {
+  // Remove any existing floating bars before re-creating (renderTabs can run more than once)
+  document.querySelectorAll('.discovery-float-bar').forEach(el => el.remove());
 
-  // Remove any existing floating bar before re-creating it (renderTabs can run more than once)
-  const existingBar = document.getElementById('discoveryFloatBar');
-  if (existingBar) existingBar.remove();
+  const gateLabels = {
+    'discovery': 'discovery questions',
+    'sales-pitch': 'the sales pitch',
+    'booking': 'booking',
+    'booking-proper': 'booking proper',
+  };
 
-  const bar = document.createElement('div');
-  bar.id = 'discoveryFloatBar';
-  bar.className = 'discovery-float-bar';
-  bar.innerHTML = discoveryDone
-    ? `<span class="discovery-float-done">&#10003; Discovery confirmed, Sales Pitch unlocked</span>`
-    : `<span class="discovery-float-text">Finished asking discovery questions?</span>
-       <button class="discovery-float-btn" id="discoveryDoneBtn" type="button">I've completed Discovery</button>`;
-  document.body.appendChild(bar);
+  const bars = [];
 
-  function updateBarVisibility() {
-    const activeTab = document.querySelector('.tab.active');
-    const onGateTab = activeTab && activeTab.dataset.target === gateTabId;
-    bar.classList.toggle('visible', Boolean(onGateTab) && !discoveryDone);
-  }
-
-  // Show/hide whenever any tab is clicked
-  document.querySelectorAll('.tab').forEach(t => {
-    t.addEventListener('click', updateBarVisibility);
+  // One floating bar per lock stage (discovery -> sales-pitch, sales-pitch -> booking/booking-proper)
+  stages.forEach(stage => {
+    const bar = document.createElement('div');
+    bar.className = 'discovery-float-bar';
+    bar.dataset.gate = stage.gate;
+    document.body.appendChild(bar);
+    bars.push({ stage, bar });
+    renderGateBarContent(bar, stage);
   });
 
-  updateBarVisibility();
+  // Special bars for booking and booking-proper, both feed into unlocking verbatim
+  const verbatimGates = ['booking', 'booking-proper'];
+  const verbatimBars = [];
+  verbatimGates.forEach((gateId, i) => {
+    const bar = document.createElement('div');
+    bar.className = 'discovery-float-bar';
+    bar.dataset.gate = gateId;
+    bar.dataset.verbatimStep = 'true';
+    document.body.appendChild(bar);
+    verbatimBars.push({ gateId, doneKey: verbatimRequires[i], bar });
+    renderVerbatimStepBarContent(bar, gateId, verbatimRequires[i], verbatimId, verbatimRequires);
+  });
 
-  const doneBtn = document.getElementById('discoveryDoneBtn');
-  if (doneBtn) {
-    doneBtn.addEventListener('click', () => {
-      discoveryDone = true;
-      sessionStorage.setItem('phoenix-discovery-done', 'true');
-
-      // Unlock only the Sales Pitch tab, nothing else
-      const salesTabBtn = document.querySelector(`.tab[data-target="${targetTabId}"]`);
-      if (salesTabBtn) {
-        salesTabBtn.classList.remove('tab-locked');
-        salesTabBtn.title = '';
-      }
-
-      bar.innerHTML = `<span class="discovery-float-done">&#10003; Discovery confirmed, Sales Pitch unlocked</span>`;
-      setTimeout(() => {
-        bar.classList.remove('visible');
-      }, 1800);
+  function renderGateBarContent(bar, stage) {
+    const done = sessionStorage.getItem(stage.doneKey) === 'true';
+    if (done) {
+      bar.innerHTML = `<span class="discovery-float-done">&#10003; Confirmed, next step unlocked</span>`;
+      return;
+    }
+    bar.innerHTML = `<span class="discovery-float-text">Finished with ${gateLabels[stage.gate] || stage.gate}?</span>
+       <button class="discovery-float-btn" type="button">I've completed this step</button>`;
+    bar.querySelector('button').addEventListener('click', () => {
+      sessionStorage.setItem(stage.doneKey, 'true');
+      stage.unlocks.forEach(id => {
+        const tabBtn = document.querySelector(`.tab[data-target="${id}"]`);
+        if (tabBtn && !isLockedByAnyStage(id)) {
+          tabBtn.classList.remove('tab-locked');
+          tabBtn.title = '';
+        }
+      });
+      bar.innerHTML = `<span class="discovery-float-done">&#10003; Confirmed, next step unlocked</span>`;
+      setTimeout(() => bar.classList.remove('visible'), 1800);
     });
   }
+
+  function renderVerbatimStepBarContent(bar, gateId, doneKey, vId, vRequires) {
+    const done = sessionStorage.getItem(doneKey) === 'true';
+    if (done) {
+      bar.innerHTML = `<span class="discovery-float-done">&#10003; Confirmed</span>`;
+      return;
+    }
+    bar.innerHTML = `<span class="discovery-float-text">Finished with ${gateLabels[gateId] || gateId}?</span>
+       <button class="discovery-float-btn" type="button">Mark as complete</button>`;
+    bar.querySelector('button').addEventListener('click', () => {
+      sessionStorage.setItem(doneKey, 'true');
+      bar.innerHTML = `<span class="discovery-float-done">&#10003; Confirmed</span>`;
+      setTimeout(() => bar.classList.remove('visible'), 1500);
+
+      if (vRequires.every(k => sessionStorage.getItem(k) === 'true')) {
+        const verbatimBtn = document.querySelector(`.tab[data-target="${vId}"]`);
+        if (verbatimBtn) {
+          verbatimBtn.classList.remove('tab-locked');
+          verbatimBtn.title = '';
+        }
+      }
+    });
+  }
+
+  function isLockedByAnyStage(tabId) {
+    // Used to avoid prematurely unlocking a tab that's also gated by another still-incomplete stage
+    return stages.some(s => s.unlocks.includes(tabId) && sessionStorage.getItem(s.doneKey) !== 'true');
+  }
+
+  function updateVisibility() {
+    const activeTab = document.querySelector('.tab.active');
+    const activeGate = activeTab ? activeTab.dataset.target : null;
+
+    bars.forEach(({ stage, bar }) => {
+      const done = sessionStorage.getItem(stage.doneKey) === 'true';
+      bar.classList.toggle('visible', activeGate === stage.gate && !done);
+    });
+
+    verbatimBars.forEach(({ gateId, doneKey, bar }) => {
+      const done = sessionStorage.getItem(doneKey) === 'true';
+      bar.classList.toggle('visible', activeGate === gateId && !done);
+    });
+  }
+
+  window.updateAllFloatingGates = updateVisibility;
+  updateVisibility();
 }
+
 
 function flashLockNotice() {
   const existing = document.getElementById('lockNotice');
@@ -320,17 +403,8 @@ function setupNotesAndModals() {
   });
 }
 
-// ---------- Menu / Admin buttons ----------
+// ---------- Page load ----------
 document.addEventListener('DOMContentLoaded', () => {
-  const menuBtn = document.getElementById('menuBtn');
-  const tabnav = document.getElementById('tabnav');
-
-  if (menuBtn && tabnav) {
-    menuBtn.addEventListener('click', () => {
-      tabnav.classList.toggle('hidden-on-mobile');
-    });
-  }
-
   loadContent();
 });
 

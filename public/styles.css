@@ -65,22 +65,18 @@ body::before {
   border-bottom: 1px solid var(--line);
 }
 
-.menu-btn {
+.logo-link {
   display: flex;
-  flex-direction: column;
-  gap: 4px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 8px;
+  align-items: center;
+  flex-shrink: 0;
 }
 
-.menu-btn span {
+.logo-img {
+  height: 32px;
+  max-width: 140px;
+  width: auto;
+  object-fit: contain;
   display: block;
-  width: 22px;
-  height: 2px;
-  background: var(--ink);
-  border-radius: 2px;
 }
 
 .page-title {
