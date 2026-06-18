@@ -582,7 +582,7 @@ function populateCalculatorOptions() {
   Object.keys(rates.dhjVouchers).forEach((hrs, i) => {
     const opt = document.createElement('option');
     opt.value = hrs;
-    opt.textContent = `${hrs} hours, $${rates.dhjVouchers[hrs]} voucher`;
+    opt.textContent = `${hrs} hours, pay $${rates.dhjVouchers[hrs]} today`;
     if (i === 2) opt.selected = true; // default to 4hrs (3rd item)
     ccHours.appendChild(opt);
   });
@@ -663,10 +663,10 @@ function attachCalculatorHandlers() {
 
     const resultBox = document.getElementById('cc-result');
     resultBox.innerHTML = `
-      <p class="result-label">DHJ Voucher Quote</p>
+      <p class="result-label">ForeverClean Quote</p>
       <div class="result-row"><span>First cleaning</span><span>${hours} hrs</span></div>
       <div class="result-row"><span>Regular price (national avg)</span><span>$${nationalAvg.toFixed(2)}</span></div>
-      <div class="result-row total"><span>Voucher price (first cleaning)</span><span>$${voucherPrice.toFixed(2)}</span></div>
+      <div class="result-row total"><span>Pay today (first cleaning)</span><span>$${voucherPrice.toFixed(2)}</span></div>
       <div class="result-row"><span>Discounted rate after membership</span><span>$${membershipRate.toFixed(2)}/hr</span></div>
       <div class="result-row"><span>Cost per future visit</span><span>$${perVisitDiscounted.toFixed(2)}</span></div>
       <div class="result-row"><span>Visits per month</span><span>${frequency}x</span></div>
