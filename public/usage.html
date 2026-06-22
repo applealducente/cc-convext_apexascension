@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Team Usage — Phoenix Ascension</title>
+<style>
+  :root{
+    --bg:#0e1116; --panel:#161b22; --panel2:#1c232d; --line:#2a3340;
+    --ink:#e8edf3; --muted:#8a97a6; --ember:#ff6a2b; --ember-soft:#ff6a2b22;
+    --mono:ui-monospace,Menlo,Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.5}
+  .wrap{max-width:960px;margin:0 auto;padding:26px 18px 80px}
+  .mark{font-family:var(--mono);font-weight:700;letter-spacing:.14em;font-size:12px;color:var(--ember)}
+  h1{font-size:21px;margin:14px 0 2px}
+  .sub{color:var(--muted);font-size:13px;margin:0 0 22px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:20px}
+  .card+.card{margin-top:16px}
+  .card h2{font-size:14px;margin:0 0 4px}
+  .card .hint{color:var(--muted);font-size:12.5px;margin:0 0 16px}
+  input,select{width:100%;background:var(--panel2);border:1px solid var(--line);color:var(--ink);
+    font:inherit;font-size:14px;padding:10px 12px;border-radius:8px}
+  input:focus,select:focus{outline:2px solid var(--ember);outline-offset:1px;border-color:transparent}
+  button{font:inherit;cursor:pointer;border-radius:8px}
+  .btn{background:var(--ember);color:#1a0d05;border:0;font-weight:700;font-size:14px;padding:11px 16px}
+  .ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
+  .sm{padding:6px 11px;font-size:12px;font-weight:600}
+  .danger{color:#ff8d8d;border-color:#5a2a2a}
+  .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{text-align:left;padding:9px 11px;border-bottom:1px solid var(--line)}
+  th{color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.05em}
+  .pill{display:inline-block;background:var(--ember-soft);color:var(--ember);font-size:11px;font-weight:700;padding:2px 9px;border-radius:99px}
+  .pill.off{background:#2a3340;color:var(--muted)}
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+  .stat{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:13px 15px}
+  .stat b{display:block;font-size:25px;line-height:1.1}
+  .stat span{color:var(--muted);font-size:12px}
+  .bars{display:flex;flex-direction:column;gap:8px}
+  .bar{display:grid;grid-template-columns:140px 1fr 40px;align-items:center;gap:10px;font-size:13px}
+  .bar .track{height:8px;background:var(--panel2);border-radius:99px;overflow:hidden}
+  .bar .fill{height:100%;background:var(--ember);border-radius:99px}
+  .bar .n{color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}
+  .toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+  .empty{color:var(--muted);font-size:13px;padding:16px 0}
+  .err{color:#ff8d8d;font-size:13px;margin-top:10px}
+  .gate{max-width:380px}
+  @media(max-width:600px){.stats{grid-template-columns:1fr}.bar{grid-template-columns:96px 1fr 34px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="mark">PHOENIX ASCENSION™</div>
+  <h1>Team usage</h1>
+  <p class="sub">Manage teams and see who's utilizing the call flow.</p>
+
+  <!-- password gate -->
+  <div class="card gate" id="gate">
+    <h2>Enter dashboard password</h2>
+    <p class="hint">Uses the same password as your admin panel.</p>
+    <input id="pw" type="password" placeholder="Password" autocomplete="current-password" />
+    <div style="margin-top:12px"><button class="btn" id="enter">View usage</button></div>
+    <p class="err" id="gateErr" style="display:none"></p>
+  </div>
+
+  <!-- teams manager -->
+  <div class="card" id="teamsCard" style="display:none">
+    <h2>Teams</h2>
+    <p class="hint">These appear in the sign-in dropdown. Saving is instant — no redeploy. Hide a team to drop it from sign-in without losing its history.</p>
+    <div class="row" style="margin-bottom:14px">
+      <input id="newTeam" placeholder="New team name" style="flex:1;min-width:200px" />
+      <button class="btn" id="addTeam">Add team</button>
+    </div>
+    <table><tbody id="teamsBody"></tbody></table>
+    <p class="err" id="teamsErr" style="display:none"></p>
+  </div>
+
+  <!-- usage -->
+  <div class="card" id="usageCard" style="display:none">
+    <div class="toolbar">
+      <div><h2 style="margin:0">Who's utilizing it</h2>
+        <p class="hint" style="margin:2px 0 0">Sign-in activity, tagged by team.</p></div>
+      <div class="row">
+        <button class="ghost sm" id="refresh">Refresh</button>
+        <button class="ghost sm danger" id="clear">Reset log</button>
+        <button class="btn sm" id="csv">Download CSV</button>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat"><b id="sTotal">0</b><span>Total sign-ins</span></div>
+      <div class="stat"><b id="sToday">0</b><span>Active today</span></div>
+      <div class="stat"><b id="sTeams">0</b><span>Teams in use</span></div>
+    </div>
+    <h2 style="font-size:13px;margin:16px 0 8px">Sign-ins by team</h2>
+    <div class="bars" id="bars"></div>
+    <h2 style="font-size:13px;margin:20px 0 8px">Recent activity</h2>
+    <table>
+      <thead><tr><th>Name</th><th>Email</th><th>Team</th><th>When</th></tr></thead>
+      <tbody id="usageBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+const $ = s => document.querySelector(s);
+const esc = s => String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let PW = '';
+let teams = [];   // [{name, active}]
+let signins = []; // [{name,email,team,ts}]
+
+async function api(opts){
+  const res = await fetch('/api/usage' + (opts.qs||''), {
+    method: opts.method||'GET',
+    headers: {'Content-Type':'application/json'},
+    body: opts.body ? JSON.stringify(opts.body) : undefined,
+  });
+  const data = await res.json().catch(()=>({}));
+  if(!res.ok) throw new Error(data.error || ('HTTP '+res.status));
+  return data;
+}
+
+// ---- gate ----
+$('#enter').addEventListener('click', signIn);
+$('#pw').addEventListener('keydown', e=>{ if(e.key==='Enter') signIn(); });
+async function signIn(){
+  PW = $('#pw').value;
+  $('#gateErr').style.display='none';
+  try{
+    await loadTeams(); await loadUsage();
+    $('#gate').style.display='none';
+    $('#teamsCard').style.display='';
+    $('#usageCard').style.display='';
+  }catch(e){
+    $('#gateErr').textContent = e.message==='Unauthorized' ? 'Wrong password.' : e.message;
+    $('#gateErr').style.display='';
+  }
+}
+
+// ---- teams ----
+async function loadTeams(){
+  const d = await api({ qs:'?action=allteams&password='+encodeURIComponent(PW) });
+  teams = d.teams || [];
+  renderTeams();
+}
+function renderTeams(){
+  $('#teamsBody').innerHTML = teams.length ? teams.map((t,i)=>`
+    <tr>
+      <td><span contenteditable="true" data-i="${i}" class="tname">${esc(t.name)}</span></td>
+      <td><span class="pill ${t.active===false?'off':''}">${t.active===false?'Hidden':'Active'}</span></td>
+      <td style="text-align:right">
+        <button class="ghost sm" data-act="toggle" data-i="${i}">${t.active===false?'Show':'Hide'}</button>
+        <button class="ghost sm danger" data-act="remove" data-i="${i}">Remove</button>
+      </td>
+    </tr>`).join('') : `<tr><td colspan="3" class="empty">No teams yet. Add one above.</td></tr>`;
+
+  $('#teamsBody').querySelectorAll('[data-act]').forEach(b=>b.addEventListener('click',async()=>{
+    const i = +b.dataset.i;
+    if(b.dataset.act==='toggle') teams[i].active = teams[i].active===false;
+    if(b.dataset.act==='remove') teams.splice(i,1);
+    await saveTeams();
+  }));
+  $('#teamsBody').querySelectorAll('.tname').forEach(el=>el.addEventListener('blur',async()=>{
+    const i=+el.dataset.i, v=el.textContent.trim();
+    if(v && v!==teams[i].name){ teams[i].name=v; await saveTeams(); } else renderTeams();
+  }));
+}
+$('#addTeam').addEventListener('click', async ()=>{
+  const v = $('#newTeam').value.trim(); if(!v) return;
+  teams.push({ name:v, active:true }); $('#newTeam').value='';
+  await saveTeams();
+});
+$('#newTeam').addEventListener('keydown', e=>{ if(e.key==='Enter') $('#addTeam').click(); });
+async function saveTeams(){
+  $('#teamsErr').style.display='none';
+  try{ await api({ method:'POST', body:{ action:'saveTeams', password:PW, teams } }); renderTeams(); }
+  catch(e){ $('#teamsErr').textContent=e.message; $('#teamsErr').style.display=''; }
+}
+
+// ---- usage ----
+async function loadUsage(){
+  const d = await api({ qs:'?action=list&password='+encodeURIComponent(PW) });
+  signins = d.signins || [];
+  renderUsage();
+}
+function timeAgo(ts){
+  const s=Math.floor((Date.now()-ts)/1000);
+  if(s<60)return'just now'; if(s<3600)return Math.floor(s/60)+'m ago';
+  if(s<86400)return Math.floor(s/3600)+'h ago'; return Math.floor(s/86400)+'d ago';
+}
+function renderUsage(){
+  $('#sTotal').textContent = signins.length;
+  const sod=new Date(); sod.setHours(0,0,0,0);
+  $('#sToday').textContent = signins.filter(r=>r.ts>=sod.getTime()).length;
+  const byTeam={}; signins.forEach(r=>{ const k=r.team||'(no team)'; byTeam[k]=(byTeam[k]||0)+1; });
+  const names=Object.keys(byTeam); $('#sTeams').textContent=names.length;
+  const max=Math.max(1,...Object.values(byTeam));
+  $('#bars').innerHTML = names.length ? names.sort((a,b)=>byTeam[b]-byTeam[a]).map(t=>`
+    <div class="bar"><span>${esc(t)}</span>
+      <span class="track"><span class="fill" style="width:${byTeam[t]/max*100}%"></span></span>
+      <span class="n">${byTeam[t]}</span></div>`).join('') : `<p class="empty">No sign-ins yet.</p>`;
+  $('#usageBody').innerHTML = signins.length ? signins.slice(0,60).map(r=>`
+    <tr><td>${esc(r.name)}</td><td>${esc(r.email)}</td>
+      <td><span class="pill">${esc(r.team||'—')}</span></td><td>${timeAgo(r.ts)}</td></tr>`).join('')
+    : `<tr><td colspan="4" class="empty">No activity yet.</td></tr>`;
+}
+$('#refresh').addEventListener('click', loadUsage);
+$('#clear').addEventListener('click', async ()=>{
+  if(!confirm('Erase the entire sign-in log? This cannot be undone.')) return;
+  await api({ method:'POST', body:{ action:'clear', password:PW } });
+  await loadUsage();
+});
+$('#csv').addEventListener('click', ()=>{
+  const header=['Name','Email','Team','Timestamp'];
+  const csv=[header.join(',')].concat(signins.map(r=>
+    [r.name,r.email,r.team||'',new Date(r.ts).toISOString()]
+      .map(v=>`"${String(v).replace(/"/g,'""')}"`).join(','))).join('\n');
+  const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url; a.download='phoenix-utilization-'+new Date().toISOString().slice(0,10)+'.csv';
+  document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+});
+</script>
+</body>
+</html>
