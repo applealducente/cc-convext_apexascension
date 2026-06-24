@@ -9,15 +9,15 @@ const LOCK_TTL_MS = 30 * 60 * 1000; // 30 minutes
 
 const LOCK_STAGES = [
   { gate: 'discovery', doneKey: 'phoenix-discovery-done', unlocks: ['sales-pitch'] },
-  { gate: 'sales-pitch', doneKey: 'phoenix-salespitch-done', unlocks: ['booking', 'booking-proper'] },
+  { gate: 'sales-pitch', doneKey: 'phoenix-salespitch-done', unlocks: ['booking'] },
 ];
 const VERBATIM_ID = 'verbatim';
-const VERBATIM_REQUIRES = ['phoenix-booking-done', 'phoenix-bookingproper-done'];
+const VERBATIM_REQUIRES = ['phoenix-booking-done'];
 
 // If an upstream step lapses, its downstream steps must be reconfirmed too.
 const LOCK_DEPENDENTS = {
-  'phoenix-discovery-done': ['phoenix-salespitch-done', 'phoenix-booking-done', 'phoenix-bookingproper-done'],
-  'phoenix-salespitch-done': ['phoenix-booking-done', 'phoenix-bookingproper-done'],
+  'phoenix-discovery-done': ['phoenix-salespitch-done', 'phoenix-booking-done'],
+  'phoenix-salespitch-done': ['phoenix-booking-done'],
 };
 
 // key -> timestamp (ms) when confirmed. Plain JS object, so it resets on every load.
@@ -133,7 +133,6 @@ function setupLockChainGates() {
     'discovery': 'discovery questions',
     'sales-pitch': 'the sales pitch',
     'booking': 'booking',
-    'booking-proper': 'booking proper',
   };
 
   // One bar per gated step.
@@ -145,8 +144,8 @@ function setupLockChainGates() {
     return { gate: stage.gate, doneKey: stage.doneKey, bar };
   });
 
-  // Booking + Booking Proper each feed into unlocking Verbatim.
-  const verbatimGates = ['booking', 'booking-proper'];
+  // Booking feeds into unlocking Verbatim.
+  const verbatimGates = ['booking'];
   const verbatimBars = verbatimGates.map((gateId, i) => {
     const bar = document.createElement('div');
     bar.className = 'discovery-float-bar';
